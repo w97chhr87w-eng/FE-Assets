@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#111827">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="style.css">
+  <title>Facilities Parts</title>
+</head>
+<body>
+<header>
+  <div>
+    <h1>Facilities Parts</h1>
+    <p id="connection">Local demo mode</p>
+  </div>
+  <button id="settingsBtn" class="icon-btn">⚙️</button>
+</header>
+
+<main>
+  <section id="dashboard" class="screen active">
+    <div class="cards">
+      <div class="card"><span>Total Parts</span><b id="statParts">0</b></div>
+      <div class="card"><span>Low Stock</span><b id="statLow">0</b></div>
+      <div class="card"><span>Pending Requests</span><b id="statRequests">0</b></div>
+      <div class="card"><span>Faulty Reports</span><b id="statFaulty">0</b></div>
+    </div>
+    <div class="panel">
+      <h2>Quick actions</h2>
+      <div class="quick">
+        <button onclick="showScreen('inventory'); openPartForm()">➕ Add Part</button>
+        <button onclick="showScreen('requests'); openRequestForm()">📋 New Request</button>
+        <button onclick="showScreen('faulty'); openFaultForm()">🛠️ Report Faulty Part</button>
+      </div>
+    </div>
+    <div class="panel">
+      <h2>Low stock</h2>
+      <div id="lowStockList"></div>
+    </div>
+  </section>
+
+  <section id="inventory" class="screen">
+    <div class="toolbar">
+      <input id="inventorySearch" placeholder="Search part, number, location…" oninput="renderInventory()">
+      <button onclick="openPartForm()">＋</button>
+    </div>
+    <div id="inventoryList"></div>
+  </section>
+
+  <section id="requests" class="screen">
+    <div class="toolbar">
+      <select id="requestFilter" onchange="renderRequests()">
+        <option value="">All requests</option><option>Requested</option><option>Approved</option>
+        <option>Issued</option><option>Completed</option><option>Rejected</option>
+      </select>
+      <button onclick="openRequestForm()">＋ New</button>
+    </div>
+    <div id="requestList"></div>
+  </section>
+
+  <section id="faulty" class="screen">
+    <div class="toolbar"><button onclick="openFaultForm()">＋ Report Fault</button></div>
+    <div id="faultList"></div>
+  </section>
+
+  <section id="history" class="screen">
+    <div id="historyList"></div>
+  </section>
+</main>
+
+<nav>
+  <button class="nav active" data-screen="dashboard" onclick="showScreen('dashboard')">🏠<small>Home</small></button>
+  <button class="nav" data-screen="inventory" onclick="showScreen('inventory')">📦<small>Inventory</small></button>
+  <button class="nav" data-screen="requests" onclick="showScreen('requests')">📋<small>Requests</small></button>
+  <button class="nav" data-screen="faulty" onclick="showScreen('faulty')">🛠️<small>Faults</small></button>
+  <button class="nav" data-screen="history" onclick="showScreen('history')">🕘<small>History</small></button>
+</nav>
+
+<div id="modal" class="modal hidden">
+  <div class="modal-box">
+    <button class="close" onclick="closeModal()">×</button>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
